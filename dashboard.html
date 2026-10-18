@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Roda Care</title>
+
+    <!-- CSS utama Roda Care -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- JavaScript CRUD kendaraan dan servis -->
+    <script defer src="js/crud.js"></script>
+</head>
+
+<body class="dashboard-page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <a class="brand sidebar-brand" href="dashboard.html">
+            <span class="brand-icon" aria-hidden="true">⚙</span>
+            <span class="brand-name">Roda<span>Care</span></span>
+        </a>
+
+        <p class="side-label">MENU UTAMA</p>
+
+        <a class="side-link selected" href="dashboard.html">
+            ▦ <span>Dashboard</span>
+        </a>
+
+        <a class="side-link" href="#kendaraan">
+            🚘 <span>Data Kendaraan</span>
+        </a>
+
+        <a class="side-link" href="#servis">
+            🔧 <span>Data Servis</span>
+        </a>
+
+        <a class="side-link" href="index.html">
+            ↗ <span>Halaman Utama</span>
+        </a>
+
+        <div class="sidebar-bottom">
+            <div class="avatar" id="userAvatar">U</div>
+
+            <div>
+                <b id="sidebarUserName">Pengguna Roda Care</b>
+                <small>Anggota</small>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- KONTEN DASHBOARD -->
+    <main class="dashboard-main">
+
+        <!-- HEADER -->
+        <header class="dash-topbar">
+
+            <button
+                class="menu-toggle dash-menu"
+                type="button"
+                aria-label="Buka menu"
+                onclick="document.getElementById('sidebar').classList.toggle('open')">
+                ☰
+            </button>
+
+            <div>
+                <span class="muted">Dashboard Pengguna</span>
+                <h2>Ruang Pengguna</h2>
+            </div>
+
+            <button
+                class="btn btn-outline"
+                type="button"
+                onclick="logoutRodaCare()">
+                Keluar
+            </button>
+
+        </header>
+
+
+        <!-- BANNER SELAMAT DATANG -->
+        <section class="welcome-banner">
+
+            <div>
+                <span class="eyebrow">PUSAT KENDALI KENDARAAN</span>
+
+                <h1 id="welcomeUser">Halo, Sobat Roda! 👋</h1>
+
+                <p>
+                    Atur kendaraan dan pantau jadwal servis agar
+                    perjalananmu tetap nyaman.
+                </p>
+
+                <a class="btn btn-white" href="#servis">
+                    Kelola Servis →
+                </a>
+            </div>
+
+            <div class="banner-car">🚙</div>
+
+        </section>
+
+
+        <!-- RINGKASAN DATA -->
+        <section class="stats-grid">
+
+            <article class="stat-card">
+                <span class="stat-icon blue">🚘</span>
+                <p>Total Kendaraan</p>
+                <h3 id="vehicleCount">0</h3>
+                <small>Kendaraan terdaftar</small>
+            </article>
+
+            <article class="stat-card">
+                <span class="stat-icon orange">🔧</span>
+                <p>Total Data Servis</p>
+                <h3 id="serviceCount">0</h3>
+                <small>Catatan perawatan</small>
+            </article>
+
+            <article class="stat-card">
+                <span class="stat-icon green">✓</span>
+                <p>Status Aplikasi</p>
+                <h3>Aktif</h3>
+                <small>Data tersimpan di browser</small>
+            </article>
+
+        </section>
+
+
+        <!-- DATA KENDARAAN -->
+        <section class="data-section" id="kendaraan">
+
+            <div class="section-title-row">
+
+                <div>
+                    <span class="eyebrow">MANAJEMEN DATA</span>
+                    <h2>Data Kendaraan</h2>
+                    <p class="muted">
+                        Tambah, edit, dan hapus kendaraan yang kamu miliki.
+                    </p>
+                </div>
+
+                <button
+                    class="btn btn-primary"
+                    type="button"
+                    onclick="openVehicleForm()">
+                    + Tambah Kendaraan
+                </button>
+
+            </div>
+
+
+            <!-- FORM KENDARAAN -->
+            <form class="inline-form hidden" id="vehicleForm">
+
+                <input type="hidden" id="vehicleId">
+
+                <label>
+                    Nama kendaraan
+                    <input
+                        id="vehicleName"
+                        type="text"
+                        placeholder="Contoh: Honda Vario"
+                        minlength="3"
+                        required>
+                </label>
+
+                <label>
+                    Nomor polisi
+                    <input
+                        id="vehiclePlate"
+                        type="text"
+                        placeholder="N 1234 ABC"
+                        required>
+                </label>
+
+                <label>
+                    Jenis kendaraan
+                    <input
+                        id="vehicleType"
+                        type="text"
+                        placeholder="Motor / Mobil"
+                        required>
+                </label>
+
+                <div class="form-actions">
+
+                    <button class="btn btn-primary" type="submit">
+                        Simpan
+                    </button>
+
+                    <button
+                        class="btn btn-light"
+                        type="button"
+                        onclick="closeVehicleForm()">
+                        Batal
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <!-- TABEL KENDARAAN -->
+            <div class="table-wrap">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama Kendaraan</th>
+                            <th>Nomor Polisi</th>
+                            <th>Jenis</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="vehicleRows">
+                        <!-- Data kendaraan diisi oleh crud.js -->
+                    </tbody>
+                </table>
+
+            </div>
+
+        </section>
+
+
+        
+<!-- DATA SERVIS -->
+<section class="data-section" id="servis">
+
+    <!-- JUDUL DAN TOMBOL -->
+    <div class="section-title-row">
+
+        <div>
+            <span class="eyebrow">RIWAYAT PERAWATAN</span>
+            <h2>Data Servis</h2>
+            <p class="muted">
+                Catat layanan dan status perawatan kendaraan.
+            </p>
+        </div>
+
+        <!-- TOMBOL PENCARIAN DAN TAMBAH SERVIS -->
+        <div class="service-actions">
+
+            <button
+                class="btn btn-outline"
+                type="button"
+                onclick="searchServicePrompt()">
+                Cari Servis
+            </button>
+
+            <button
+                class="btn btn-primary"
+                type="button"
+                onclick="openServiceForm()">
+                + Tambah Servis
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- FORM TAMBAH DAN EDIT SERVIS -->
+    <form id="serviceForm" class="inline-form hidden">
+
+        <!-- ID SERVIS UNTUK EDIT DATA -->
+        <input type="hidden" id="serviceId">
+
+        <div class="form-group">
+            <label for="serviceVehicle">Nama Kendaraan</label>
+            <input
+                type="text"
+                id="serviceVehicle"
+                placeholder="Contoh: Honda Vario"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label for="serviceType">Jenis Servis</label>
+            <input
+                type="text"
+                id="serviceType"
+                placeholder="Contoh: Ganti Oli"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label for="serviceDate">Tanggal Servis</label>
+            <input
+                type="date"
+                id="serviceDate"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label for="serviceStatus">Status Servis</label>
+            <select id="serviceStatus" required>
+                <option value="Menunggu">Menunggu</option>
+                <option value="Diproses">Diproses</option>
+                <option value="Selesai">Selesai</option>
+            </select>
+        </div>
+
+        <!-- TOMBOL SIMPAN DAN BATAL -->
+        <div class="form-actions">
+
+            <button
+                class="btn btn-primary"
+                type="submit">
+                Simpan Servis
+            </button>
+
+            <button
+                class="btn btn-outline"
+                type="button"
+                onclick="closeServiceForm()">
+                Batal
+            </button>
+
+        </div>
+
+    </form>
+
+    <!-- TABEL DATA SERVIS -->
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Nama Kendaraan</th>
+                    <th>Jenis Servis</th>
+                    <th>Tanggal Servis</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody id="serviceRows">
+
+                <tr>
+                    <td colspan="5">
+                        Belum ada data servis.
+                        Klik "+ Tambah Servis" untuk mulai.
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+<!-- AKHIR DATA SERVIS -->
+
+
+
+            <!-- FORM SERVIS -->
+            <form class="inline-form hidden" id="serviceForm">
+
+                <input type="hidden" id="serviceId">
+
+                <label>
+                    Nama kendaraan
+                    <input
+                        id="serviceVehicle"
+                        type="text"
+                        placeholder="Contoh: Honda Vario"
+                        required>
+                </label>
+
+                <label>
+                    Jenis servis
+                    <input
+                        id="serviceType"
+                        type="text"
+                        placeholder="Contoh: Ganti oli"
+                        required>
+                </label>
+
+                <label>
+                    Tanggal servis
+                    <input
+                        id="serviceDate"
+                        type="date"
+                        required>
+                </label>
+
+                <label>
+                    Status servis
+                    <select id="serviceStatus">
+                        <option value="Terjadwal">Terjadwal</option>
+                        <option value="Selesai">Selesai</option>
+                        <option value="Dalam proses">Dalam proses</option>
+                    </select>
+                </label>
+
+                <div class="form-actions">
+
+                    <button class="btn btn-primary" type="submit">
+                        Simpan
+                    </button>
+
+                    <button
+                        class="btn btn-light"
+                        type="button"
+                        onclick="closeServiceForm()">
+                        Batal
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <!-- TABEL SERVIS -->
+            <div class="table-wrap">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kendaraan</th>
+                            <th>Jenis Servis</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="serviceRows">
+                        <!-- Data servis diisi oleh crud.js -->
+                    </tbody>
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="dash-footer">
+            © 2026 Roda Care · Data demo disimpan menggunakan localStorage.
+        </footer>
+
+    </main>
+
+
+    <!-- LOGOUT -->
+    <script>
+        // Menghapus sesi pengguna saat logout
+        function logoutRodaCare() {
+            const konfirmasi = confirm(
+                "Apakah kamu yakin ingin keluar dari Roda Care?"
+            );
+
+            if (konfirmasi) {
+                sessionStorage.removeItem("rodacare_session");
+                window.location.href = "login.html";
+            }
+        }
+    </script>
+
+</body>
+</html>
