@@ -1,49 +1,217 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roda Care | Perawatan Kendaraan</title>
-  <link rel="stylesheet" href="css/style.css">
+	<link rel="icon" href="assets/icon.png" />
+	<title>Home</title>
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@500;700&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
+
 <body>
-  <header class="navbar">
-    <a class="brand" href="index.html"><span class="brand-icon" aria-hidden="true">⚙</span> <span class="brand-name">Roda<span>Care</span></span></a>
-    <div class="nav-tools"><button id="themeToggle" class="theme-toggle" type="button" aria-label="Ubah tema" title="Ubah tema">🌙</button><button class="menu-toggle" id="menuToggle" aria-label="Buka menu" aria-expanded="false" type="button">☰</button></div>
-    <nav class="nav-links">
-      <a class="active" href="index.html">Beranda</a>
-      <a href="#layanan">Layanan</a>
-      <a href="#tentang">Tentang</a>
-      <a class="btn btn-outline" href="login.html">Masuk</a>
-      <a class="btn btn-primary" href="register.html">Daftar</a>
-    </nav>
-  </header>
-  <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <span class="eyebrow">SOLUSI PERAWATAN KENDARAAN</span>
-        <h1>Rawat kendaraanmu,<br><span>perjalanan lebih tenang.</span></h1>
-        <p>Pesan servis kendaraan dengan mudah, pantau riwayat perawatan, dan temukan layanan bengkel yang sesuai kebutuhanmu.</p>
-        <div class="hero-actions"><a class="btn btn-primary" href="register.html">Mulai Sekarang →</a><a class="btn btn-light" href="#layanan">Lihat Layanan</a></div>
-        <div class="hero-points"><span>✓ Jadwal fleksibel</span><span>✓ Riwayat servis tercatat</span></div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-circle"></div><div class="car-emoji">🚘</div>
-        <div class="floating-card"><span class="status-dot"></span><div><b>Servis lebih teratur</b><small>Semua catatan dalam satu tempat</small></div></div>
-      </div>
-    </section>
-    <section class="section" id="layanan">
-      <div class="section-heading"><span class="eyebrow">LAYANAN KAMI</span><h2>Perawatan jadi lebih praktis</h2><p>Pilih layanan sesuai kondisi kendaraanmu.</p><label class="service-search-label" for="serviceSearch">Cari layanan</label><input id="serviceSearch" class="service-search" type="search" placeholder="Contoh: ganti oli" autocomplete="off"></div>
-      <div class="service-grid">
-        <article class="service-card"><div class="service-icon">🛢️</div><h3>Ganti Oli</h3><p>Perawatan rutin untuk menjaga performa mesin.</p></article>
-        <article class="service-card"><div class="service-icon">🔧</div><h3>Servis Berkala</h3><p>Pemeriksaan kendaraan agar tetap nyaman digunakan.</p></article>
-        <article class="service-card"><div class="service-icon">🛞</div><h3>Ban & Rem</h3><p>Pemeriksaan komponen penting untuk keselamatan.</p></article>
-      </div>
-    </section>
-    <section class="cta-panel" id="tentang"><div><span class="eyebrow">RODA CARE</span><h2>Kendaraan terawat, aktivitas lancar.</h2><p>Kelola kendaraan dan catatan servis tanpa repot.</p></div><a class="btn btn-primary" href="register.html">Buat Akun Gratis →</a></section>
-  </main>
-  <footer class="footer"><a class="brand" href="index.html"><span class="brand-icon" aria-hidden="true">⚙</span> <span class="brand-name">Roda<span>Care</span></span></a><p>© <span id="currentYear">2026</span> Roda Care · Teman perjalananmu.</p></footer>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="js/dom.js"></script>
+	<div class="container">
+		<header>
+			<nav>
+				<div class="logo">
+					<img src="assets/logo.png" alt="" />
+				</div>
+				<input type="checkbox" id="click" />
+				<label for="click" class="menu-btn">
+					<i class="fas fa-bars"></i>
+				</label>
+				<ul>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Categories</a></li>
+					<li><a href="login.php" class="btn_login">Login</a></li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<div class="jumbotron">
+				<div class="jumbotron-text">
+					<h1>Find Your New Little Cat, Make a New Friend</h1>
+					<p> Teman barumu yang lucu menunggu mu, ayo temukan mereka sekarang
+					</p>
+					<button type="button" class="btn_getStarted">Get Started</button>
+				</div>
+				<div class="jumbotron-img">
+					<img src="assets/jumbotron.png" alt="" />
+				</div>
+			</div>
+			<div class="cards-categories">
+				<h2>Cat Categories</h2>
+				<div class="card-categories">
+					<div class="card">
+						<div class="card-image">
+							<img src="assets/anggora.png" alt="gambar tidak ditemukan" />
+						</div>
+						<div class="card-content">
+							<h5>Anggora</h5>
+							<p class="description">Anggora turki adalah salah satu ras kucing domestik alami tertua. Ras
+								ini berasal dari Ankara, Turki. Kucing ini sangat populer dan terkenal di Indonesia.</p>
+							<p class="price"><span>Rp.</span>50,000</p>
+							<button class="btn_belanja" type="submit" onclick="bukaModal('Anggora')">Beli</button>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-image">
+							<img src="assets/persia.png" alt="gambar tidak ditemukan" />
+						</div>
+						<div class="card-content">
+							<h5>Persia</h5>
+							<p class="description">Kucing persia adalah ras kucing domestik berbulu panjang dengan
+								karakter wajah bulat dan moncong pendek. Namanya mengacu pada Persia.</p>
+							<p class="price"><span>Rp.</span>50,000</p>
+							<button class="btn_belanja" type="submit" onclick="bukaModal('Persia')">Beli</button>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-image">
+							<img src="assets/british.png" alt="gambar tidak ditemukan" />
+						</div>
+						<div class="card-content">
+							<h5>British Shorthair</h5>
+							<p class="description">Kucing bulu pendek britania adalah salah satu ras kucing tertua di
+								inggris. Kucing ini adalah kucing berbadan sedang dengan bulu yang pendek. </p>
+							<p class="price"><span>Rp.</span>50,000</p>
+							<button class="btn_belanja" type="submit"
+								onclick="bukaModal('British Shorthair')">Beli</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!--  Modal -->
+			<div id="myModal" class="modal-container" onclick="tutupModal()">
+				<div class="modal-dialog" onclick="event.stopPropagation()">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title " style="color:  #ffb72b;">Formulit Pembayaran</h1>
+							<button type="button" class="btn-close" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-group">
+									<label class="labelmodal" for="recipient-name" class="col-form-label">Nama :</label>
+									<input class="inputdata" type="text" class="form-control" id="recipient-name">
+								</div>
+								<div class="form-group">
+									<label class="labelmodal" for="handphone" class="col-form-label">No. Hp :</label>
+									<input class="inputdata" type="text" class="form-control" id="handphone">
+								</div>
+								<div class="form-group">
+									<label class="labelmodal" for="alamat-text" class="col-form-label">Alamat:</label>
+									<textarea class="inputalamat" class="form-control" id="alamat-text"></textarea>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" onclick="tutupModal()">Keluar</button>
+							<button type="button" class="btn btn-yellow" onclick="bukaModal2()">Lanjutkan</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Modal 2 -->
+			<div id="myModal2" class="modal-container" onclick="tutupModal2()">
+				<div class="modal-dialog" onclick="event.stopPropagation()">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title" style="color:  #ffb72b;">Data Transaksi</h1>
+							<button type="button" class="btn-close" aria-label="Close" onclick="tutupModal2()"></button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<h4> Kategori</h4>
+								<div class="form-group">
+									<label class="labelmodal" for="detail-kategori" class="col-form-label">Kategori
+										:</label>
+									<input class="inputdata" type="text" class="form-control" id="detail-kategori"
+										disabled>
+								</div>
+								<div class="form-group">
+									<label class="labelmodal" for="detail-harga" class="col-form-label">Harga :</label>
+									<input class="inputdata" type="text" class="form-control" id="detail-harga"
+										disabled>
+								</div>
+								<h4>Pembeli</h4>
+								<div class="form-group">
+									<label class="labelmodal" for="detail-nama" class="col-form-label">Nama :</label>
+									<input class="inputdata" type="text" class="form-control" id="detail-nama" disabled>
+								</div>
+								<div class="form-group">
+									<label class="labelmodal" for="detail-nomorhp" class="col-form-label">No. Hp
+										:</label>
+									<input class="inputdata" type="text" class="form-control" id="detail-nomorhp"
+										disabled>
+								</div>
+								<div class="form-group">
+									<label class="labelmodal" for="detail-alamat" class="col-form-label">Alamat:</label>
+									<textarea class="inputalamat" class="form-control" id="detail-alamat"
+										disabled></textarea>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" onclick="kembaliKeModalPertama()">Kembali</button>
+							<button type="button" class="btn btn-yellow" onclick="lakukanPembayaran()">Lakukan
+								Pembayaran</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</main>
+		<footer>
+			<h4>&copy; Lab Pemrograman Komputer 2024</h4>
+		</footer>
+	</div>
+	<script>
+		// Fungsi Modal
+		function bukaModal(kategori) {
+			document.getElementById("myModal").style.display = "flex";
+
+			document.getElementById("kategori-detail").innerText = "Detail " + kategori;
+
+			document.getElementById("nama").value = "";
+			document.getElementById("nomorhp").value = "";
+			document.getElementById("alamat").value = "";
+		}
+
+		function tutupModal() {
+			document.getElementById("myModal").style.display = "none";
+		}
+
+		function tutupModal2() {
+			document.getElementById("myModal2").style.display = "none";
+		}
+		function bukaModal2() {
+			tutupModal(); // Tutup modal pertama
+			document.getElementById("myModal2").style.display = "flex";
+
+			var nama = document.getElementById("recipient-name").value;
+			var nomorhp = document.getElementById("handphone").value;
+			var alamat = document.getElementById("alamat-text").value;
+
+			document.getElementById("detail-nama").value = nama;
+			document.getElementById("detail-nomorhp").value = nomorhp;
+			document.getElementById("detail-alamat").value = alamat;
+		}
+		function kembaliKeModalPertama() {
+			tutupModal2();
+			bukaModal();
+		}
+		function lakukanPembayaran() {
+			alert("Pembayaran berhasil!");
+			tutupModal2();
+		}
+
+	</script>
 </body>
+
 </html>

@@ -1,17 +1,16 @@
 
 <?php
-session_start();
-
-// Memeriksa apakah pengguna sudah login
-if (!isset($_SESSION["nama_pengguna"])) {
-    header("Location: login.php");
-    exit;
-}
-
-// Function untuk menghitung total pembayaran
-function hitungTotal($jumlah, $harga, $diskonPersen) {
+// Function untuk menghitung total harga dan diskon
+function hitungTotal($jumlah, $harga) {
     $subtotal = $jumlah * $harga;
-    $diskon = $subtotal * ($diskonPersen / 100);
+
+    // Diskon 10% jika subtotal di atas Rp100.000
+    if ($subtotal > 100000) {
+        $diskon = $subtotal * 10 / 100;
+    } else {
+        $diskon = 0;
+    }
+
     $total = $subtotal - $diskon;
 
     return [
@@ -21,164 +20,110 @@ function hitungTotal($jumlah, $harga, $diskonPersen) {
     ];
 }
 
-// Inisialisasi variabel
-$hasil = null;
+// Variabel awal
 $pesan = "";
+$hasil = null;
 
-$nama_pelanggan = "";
-$nama_produk = "";
-$jumlah = "";
-$harga = "";
-$diskon = "";
+// Proses form ketika tombol diklik
+if (isset($_POST['pesan'])) {
 
-// Memproses form pemesanan
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nama = trim($_POST['nama']);
+    $produk = trim($_POST['produk']);
+    $jumlah = trim($_POST['jumlah']);
+    $harga = trim($_POST['harga']);
 
-    $nama_pelanggan = trim($_POST["nama_pelanggan"] ?? "");
-    $nama_produk = trim($_POST["nama_produk"] ?? "");
-    $jumlah = $_POST["jumlah"] ?? "";
-    $harga = $_POST["harga"] ?? "";
-    $diskon = $_POST["diskon"] ?? "";
-
-    // Validasi data kosong
-    if (
-        $nama_pelanggan == "" ||
-        $nama_produk == "" ||
-        $jumlah == "" ||
-        $harga == "" ||
-        $diskon == ""
-    ) {
-        $pesan = "Semua kolom wajib diisi!";
+    // Validasi semua field wajib diisi
+    if ($nama == "" || $produk == "" || $jumlah == "" || $harga == "") {
+        $pesan = "Semua field wajib diisi!";
     }
-
-    // Validasi angka
-    elseif (
-        !is_numeric($jumlah) ||
-        !is_numeric($harga) ||
-        !is_numeric($diskon) ||
-        $jumlah <= 0 ||
-        $harga <= 0 ||
-        $diskon < 0 ||
-        $diskon > 100 ||
-        floor((float)$jumlah) != (float)$jumlah
-    ) {
-        $pesan = "Jumlah harus bilangan bulat positif, harga harus lebih dari 0, dan diskon antara 0 sampai 100!";
+    // Validasi jumlah harus angka dan lebih dari nol
+    else if (!is_numeric($jumlah) || $jumlah <= 0) {
+        $pesan = "Jumlah harus berupa angka dan lebih dari nol!";
     }
-
-    // Jika semua data valid
+    // Validasi harga harus angka dan lebih dari nol
+    else if (!is_numeric($harga) || $harga <= 0) {
+        $pesan = "Harga harus berupa angka dan lebih dari nol!";
+    }
     else {
-        $hasil = hitungTotal(
-            (int)$jumlah,
-            (float)$harga,
-            (float)$diskon
-        );
+        $jumlah = (int) $jumlah;
+        $harga = (float) $harga;
+
+        // Memanggil function
+        $hasil = hitungTotal($jumlah, $harga);
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Pemesanan Produk - Roda Care</title>
+    <title>Form Pemesanan Produk</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            margin: 0;
+            background: #f2f2f2;
             padding: 30px;
         }
 
         .container {
-            max-width: 750px;
-            margin: auto;
             background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            width: 550px;
+            max-width: 100%;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-sizing: border-box;
         }
 
         h2 {
-            color: #1d3557;
             text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
         }
 
         label {
             display: block;
-            margin-bottom: 7px;
-            font-weight: bold;
+            margin-top: 12px;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
         }
 
         button {
+            margin-top: 20px;
+            padding: 12px;
             width: 100%;
-            padding: 13px;
-            background: #1d3557;
+            background: #1684d8;
             color: white;
             border: none;
-            border-radius: 6px;
             cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background: #457b9d;
-        }
-
-        .pesan {
-            background: #ffe5e5;
-            color: #b00020;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 15px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
+            border: 1px solid #ccc;
+            padding: 10px;
             text-align: left;
         }
 
         th {
-            background: #1d3557;
+            background: #1684d8;
             color: white;
         }
 
-        .total {
-            font-weight: bold;
-            background: #e8f1fa;
-        }
-
-        .kembali {
-            display: inline-block;
-            margin-top: 20px;
-            color: #1d3557;
-            text-decoration: none;
-            font-weight: bold;
+        .error {
+            color: red;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -189,78 +134,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <h2>Form Pemesanan Produk</h2>
 
-    <p>
-        Selamat datang,
-        <b><?php echo htmlspecialchars($_SESSION["nama_pengguna"]); ?></b>
-    </p>
+    <form method="post" action="">
 
-    <?php if ($pesan != ""): ?>
-        <div class="pesan">
-            <?php echo htmlspecialchars($pesan); ?>
-        </div>
-    <?php endif; ?>
+        <label>Nama Pelanggan</label>
+        <input type="text" name="nama"
+            value="<?php echo htmlspecialchars($_POST['nama'] ?? ''); ?>">
 
-    <form method="POST" action="">
+        <label>Nama Produk</label>
+        <input type="text" name="produk"
+            value="<?php echo htmlspecialchars($_POST['produk'] ?? ''); ?>">
 
-        <div class="form-group">
-            <label>Nama Pelanggan</label>
-            <input
-                type="text"
-                name="nama_pelanggan"
-                value="<?php echo htmlspecialchars($nama_pelanggan); ?>"
-                required>
-        </div>
+        <label>Jumlah Produk</label>
+        <input type="number" name="jumlah" min="1"
+            value="<?php echo htmlspecialchars($_POST['jumlah'] ?? ''); ?>">
 
-        <div class="form-group">
-            <label>Nama Produk</label>
-            <input
-                type="text"
-                name="nama_produk"
-                value="<?php echo htmlspecialchars($nama_produk); ?>"
-                required>
-        </div>
+        <label>Harga Produk (Rp)</label>
+        <input type="number" name="harga" min="1" step="any"
+            value="<?php echo htmlspecialchars($_POST['harga'] ?? ''); ?>">
 
-        <div class="form-group">
-            <label>Jumlah Pesanan</label>
-            <input
-                type="number"
-                name="jumlah"
-                min="1"
-                step="1"
-                value="<?php echo htmlspecialchars((string)$jumlah); ?>"
-                required>
-        </div>
-
-        <div class="form-group">
-            <label>Harga Produk (Rp)</label>
-            <input
-                type="number"
-                name="harga"
-                min="1"
-                step="any"
-                value="<?php echo htmlspecialchars((string)$harga); ?>"
-                required>
-        </div>
-
-        <div class="form-group">
-            <label>Diskon (%)</label>
-            <input
-                type="number"
-                name="diskon"
-                min="0"
-                max="100"
-                step="any"
-                value="<?php echo htmlspecialchars((string)$diskon); ?>"
-                required>
-        </div>
-
-        <button type="submit">Hitung Pemesanan</button>
+        <button type="submit" name="pesan">Pesan Sekarang</button>
 
     </form>
 
-    <?php if ($hasil !== null): ?>
+    <?php if ($pesan != "") { ?>
+        <p class="error">
+            <?php echo htmlspecialchars($pesan); ?>
+        </p>
+    <?php } ?>
 
-        <h2>Hasil Pemesanan</h2>
+    <?php if ($hasil != null) { ?>
+
+        <h3>Hasil Pemesanan</h3>
 
         <table>
             <tr>
@@ -270,53 +174,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <tr>
                 <td>Nama Pelanggan</td>
-                <td><?php echo htmlspecialchars($nama_pelanggan); ?></td>
+                <td><?php echo htmlspecialchars($nama); ?></td>
             </tr>
 
             <tr>
                 <td>Nama Produk</td>
-                <td><?php echo htmlspecialchars($nama_produk); ?></td>
+                <td><?php echo htmlspecialchars($produk); ?></td>
             </tr>
 
             <tr>
                 <td>Jumlah</td>
-                <td><?php echo htmlspecialchars((string)$jumlah); ?></td>
+                <td><?php echo $jumlah; ?></td>
             </tr>
 
             <tr>
                 <td>Harga Satuan</td>
-                <td>
-                    Rp <?php echo number_format($harga, 0, ',', '.'); ?>
-                </td>
+                <td>Rp <?php echo number_format($harga, 0, ',', '.'); ?></td>
             </tr>
 
             <tr>
                 <td>Subtotal</td>
-                <td>
-                    Rp <?php echo number_format($hasil["subtotal"], 0, ',', '.'); ?>
-                </td>
+                <td>Rp <?php echo number_format($hasil['subtotal'], 0, ',', '.'); ?></td>
             </tr>
 
             <tr>
-                <td>Diskon (<?php echo htmlspecialchars((string)$diskon); ?>%)</td>
-                <td>
-                    Rp <?php echo number_format($hasil["diskon"], 0, ',', '.'); ?>
-                </td>
+                <td>Diskon (10%)</td>
+                <td>Rp <?php echo number_format($hasil['diskon'], 0, ',', '.'); ?></td>
             </tr>
 
-            <tr class="total">
-                <td>Total Pembayaran</td>
-                <td>
-                    Rp <?php echo number_format($hasil["total"], 0, ',', '.'); ?>
-                </td>
+            <tr>
+                <th>Total Pembayaran</th>
+                <th>Rp <?php echo number_format($hasil['total'], 0, ',', '.'); ?></th>
             </tr>
         </table>
 
-    <?php endif; ?>
-
-    <a href="dashboard.php" class="kembali">
-        ← Kembali ke Dashboard
-    </a>
+    <?php } ?>
 
 </div>
 

@@ -1,11 +1,77 @@
 <!DOCTYPE html>
-<html lang="id">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Daftar | Roda Care</title><link rel="stylesheet" href="css/style.css"><script defer src="js/app.js"></script></head>
-<body class="auth-page">
-  <a class="brand auth-brand" href="index.html"><span class="brand-icon" aria-hidden="true">⚙</span> <span class="brand-name">Roda<span>Care</span></span></a>
-  <main class="auth-layout"><section class="auth-promo"><span class="eyebrow">GABUNG RODA CARE</span><h1>Semua kebutuhan servis kendaraan dalam satu tempat.</h1><p>Buat akun untuk mulai mencatat kendaraan dan mengatur perawatan secara lebih terencana.</p><div class="promo-art">🔧<span>✓</span></div></section>
-  <section class="auth-card"><a class="back-link" href="index.html">← Kembali ke beranda</a><h2>Buat akun baru</h2><p class="muted">Isi data berikut untuk mendaftar.</p>
-    <form id="registerForm"><label for="name">Nama lengkap</label><input id="name" type="text" placeholder="Nama kamu" required><label for="regEmail">Email</label><input id="regEmail" type="email" placeholder="nama@email.com" required><label for="regPassword">Kata sandi</label><input id="regPassword" type="password" placeholder="Minimal 6 karakter" minlength="6" required><label for="confirmPassword">Konfirmasi kata sandi</label><input id="confirmPassword" type="password" placeholder="Ulangi kata sandi" minlength="6" required><button class="btn btn-primary full" type="submit">Daftar Sekarang</button><p id="formMessage" class="form-message"></p></form>
-    <p class="auth-switch">Sudah punya akun? <a href="login.html">Masuk</a></p><p class="demo-note">Demo praktikum: pendaftaran hanya simulasi di browser.</p>
-  </section></main>
-</body></html>
+<html lang="en">
+  <head>
+    <title>Register</title>
+    <link rel="icon" href="assets/icon.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <nav>
+          <div class="logo">
+            <img src="assets/logo.png" alt="" />
+          </div>
+          <input type="checkbox" id="click" />
+          <label for="click" class="menu-btn">
+            <i class="fas fa-bars"></i>
+          </label>
+          <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="login.php" class="btn_login">Login</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <div class="center">
+          <div class="form-login">
+            <h3>Register</h3>
+            <form action="">
+              <input
+                class="input"
+                type="email"
+                name="email"
+                placeholder="Email"
+              />
+              <input
+                class="input"
+                type="text"
+                name="username"
+                placeholder="Username"
+              />
+              <input
+                class="input"
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
+              <button
+                type="submit"
+                class="btn_login"
+                name="register"
+                id="register"
+              >
+                Register
+              </button>
+            </form>
+          </div>
+        </div>
+      </main>
+      <footer>
+        <h4>&copy; Lab Pemrograman Komputer 2026</h4>
+      </footer>
+    </div>
+  </body>
+</html>
