@@ -1,0 +1,14 @@
+
+<?php
+session_start();
+
+// Kosongkan semua data session
+$_SESSION = [];
+
+// Hapus session
+session_destroy();
+
+// Kembali ke halaman login
+header("Location: login.php");
+exit;
+?>
